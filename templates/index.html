@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{%block title%}
+    Home
+{%endblock %} 
+
+{% block bodyblock %}
+
+    <div class="container my-3">
+        <h2>
+            Todo list
+        </h2>
+        <form action="/" method="POST" onsubmit="return ValidateForm()">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Todo Title</label>
+              <input type="text" class="form-control" name = "title" id="title" aria-describedby="emailHelp" required>
+              <div id="text" class="form-text">Add the title of the todo list.</div>
+            </div>
+            <div class="mb-3">
+              <label for="text" class="form-label">Todo description</label>
+              <input type="text" class="form-control" name="desc" id="desc" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+
+    <script src="js/script.js"></script>
+
+    <br>
+    
+    <div class="container my-3">
+
+        {% if alltodo|length==0  %}
+            <h2>
+                No Todo tasks
+            </h2>
+            
+        {% else %}
+            <h2>
+                Your Todo Tasks
+            </h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Time</th>
+                </tr>
+                </thead>
+
+                
+                
+                <tbody>
+
+                    {% for todo in alltodo  %}
+
+                        <tr>
+                            <th scope="row">{{ todo.sno }}</th>
+                            <td>{{ todo.title }}</td>
+                            <td>{{ todo.desc }}</td>
+                            <td>{{ todo.time }}</td>
+                            <td>
+                                <a href="/update/{{todo.sno}}" type="button" class="btn btn-success">Update</a>
+                                <a href="/delete/{{todo.sno}}" type="button" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    
+                    {% endfor %}
+
+                </tbody>
+                
+        {% endif %}
+
+            
+
+          </table>
+    </div>
+
+
+{% endblock %}
